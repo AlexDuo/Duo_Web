@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from register import views
+from register import views as regviews
+from login import views as logviews
 
 # A web service contains several applications, for django project, we need go to terminal execute
 #  python manage.py startapp "application name"
 urlpatterns = [
-    path('register/', views.register),
+    path('register/', regviews.register),
+    path('login/',logviews.login)
 ]

@@ -11,11 +11,16 @@ class login_form(forms.Form):
                                widget=forms.TextInput(attrs={'placeholder': 'Please input password'}))
 
     def clean(self):
-        cleaned_data = self.cleaned_data
-
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
 
         username_list = list(models.user_info_entity.objects.all().values_list('username'))
+        for i in username_list:
+            if username in i:
+                password_get = models.user_info_entity.objects.get(username=username)
+                if password_get != password:
+                    raise forms.ValidationError('Password invalid!')
+            else:
+                raise forms.ValidationError('Username does not exist!')
 
-        
+
